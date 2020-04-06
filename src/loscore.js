@@ -79,22 +79,20 @@ class LoScore {
   }
 
   every(collection, test) {
-    // let result;
-
-    this.reduce(
+    if (!test) {
+      return true;
+    }
+    return this.reduce(
       collection,
-      function(tester, value) {
-        if (tester === false) {
+      function(passed, value) {
+        if (!passed) {
           return false;
         } else {
-          return true;
+          return test(value);
         }
       },
-      false
+      true
     );
-
-    // console.log(result, "SAFGSKAFJDSFSDJFSLKDFJSKLFJDSFJDS")
-    // return result;
   }
 
   /**
@@ -120,16 +118,33 @@ class LoScore {
   * */
 
   once(func) {
-    // YOUR CODE HERE
+    let ran = false;
+    let results;
+    return function(...args) {
+      if (ran === false) {
+        ran = true;
+        results = func(...args);
+      }
+      return results;
+    };
   }
 
   memoize(func) {
-    // YOUR CODE HERE
+    const cache = [];
+    let output;
+    return function(...args) {
+      let value = args[0];
+      if (value in cache) {
+        cache.push(value);
+      } else {
+        output = func(value);
+        cache[value] = output;
+        return output;
+      }
+    };
   }
 
-  invoke(collection, functionOrKey) {
-    // YOUR CODE HERE
-  }
+  invoke(collection, functionOrKey) {}
 
   /**
   | ADVANCED REQUIREMENTS
