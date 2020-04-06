@@ -9,7 +9,20 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    // YOUR CODE HERE
+    let newArray = [];
+    let found = false;
+    for (let x = 0; x < array.length; x++) {
+      for (let i = 0; i < newArray.length; i++) {
+        if (array[x] === newArray[i]) {
+          found = true;
+        }
+      }
+      if (found === false) {
+        newArray.push(array[x]);
+      }
+      found = false;
+    }
+    return newArray;
   }
 
   /**
@@ -30,7 +43,11 @@ class LoScore {
   }
 
   map(collection, iteratee) {
-    // YOUR CODE HERE
+    let newArray = [];
+    this.each(collection, function(value) {
+      return newArray.push(iteratee(value));
+    });
+    return newArray;
   }
 
   filter(collection, test) {
@@ -39,14 +56,45 @@ class LoScore {
     return result;
   }
 
-  reject(collection, test) {}
-
-  reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
+  reject(collection, test) {
+    let newArray = [];
+    this.filter(collection, function(value) {
+      if (test(value) == false) {
+        return newArray.push(value);
+      }
+    });
+    return newArray;
   }
 
-  every() {
-    // YOUR CODE HERE
+  reduce(collection, iterator, accumulator) {
+    let result = accumulator;
+    this.each(collection, function(value, index) {
+      if (accumulator === undefined && index === 0) {
+        result = value;
+      } else {
+        result = iterator(result, value);
+      }
+    });
+    return result;
+  }
+
+  every(collection, test) {
+    // let result;
+
+    this.reduce(
+      collection,
+      function(tester, value) {
+        if (tester === false) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      false
+    );
+
+    // console.log(result, "SAFGSKAFJDSFSDJFSLKDFJSKLFJDSFJDS")
+    // return result;
   }
 
   /**
@@ -54,7 +102,16 @@ class LoScore {
   |~~~~~~~~~~
   * */
   extend(obj) {
-    // YOUR CODE HERE
+    let argumentsArray = [];
+    for (let x = 1; x < arguments.length; x++) {
+      argumentsArray.push(arguments[x]);
+    }
+    this.each(argumentsArray, (object) => {
+      this.each(object, (value, key) => {
+        obj[key] = value;
+      });
+    });
+    return obj;
   }
 
   /**
