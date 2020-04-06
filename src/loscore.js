@@ -9,7 +9,7 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    let newArray = [];
+    const newArray = [];
     let found = false;
     for (let x = 0; x < array.length; x++) {
       for (let i = 0; i < newArray.length; i++) {
@@ -43,8 +43,8 @@ class LoScore {
   }
 
   map(collection, iteratee) {
-    let newArray = [];
-    this.each(collection, function(value) {
+    const newArray = [];
+    this.each(collection, (value) => {
       return newArray.push(iteratee(value));
     });
     return newArray;
@@ -57,9 +57,9 @@ class LoScore {
   }
 
   reject(collection, test) {
-    let newArray = [];
-    this.filter(collection, function(value) {
-      if (test(value) == false) {
+    const newArray = [];
+    this.filter(collection, (value) => {
+      if (test(value) === false) {
         return newArray.push(value);
       }
     });
@@ -68,7 +68,7 @@ class LoScore {
 
   reduce(collection, iterator, accumulator) {
     let result = accumulator;
-    this.each(collection, function(value, index) {
+    this.each(collection, (value, index) => {
       if (accumulator === undefined && index === 0) {
         result = value;
       } else {
@@ -87,9 +87,8 @@ class LoScore {
       (passed, value) => {
         if (!passed) {
           return false;
-        } else {
-          return test(value);
         }
+        return test(value);
       },
       true
     );
@@ -100,7 +99,7 @@ class LoScore {
   |~~~~~~~~~~
   * */
   extend(obj) {
-    let argumentsArray = [];
+    const argumentsArray = [];
     for (let x = 1; x < arguments.length; x++) {
       argumentsArray.push(arguments[x]);
     }
@@ -133,7 +132,7 @@ class LoScore {
     const cache = [];
     let output;
     return function(...args) {
-      let value = args[0];
+      const value = args[0];
       if (value in cache) {
         cache.push(value);
       } else {
