@@ -98,10 +98,10 @@ class LoScore {
   | OBJECTS
   |~~~~~~~~~~
   * */
-  extend(obj) {
+  extend(obj, ...args) {
     const argumentsArray = [];
-    for (let x = 1; x < arguments.length; x++) {
-      argumentsArray.push(arguments[x]);
+    for (let x = 0; x < args.length; x++) {
+      argumentsArray.push(args[x]);
     }
     this.each(argumentsArray, (object) => {
       this.each(object, (value, key) => {
