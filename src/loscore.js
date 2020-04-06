@@ -84,7 +84,7 @@ class LoScore {
     }
     return this.reduce(
       collection,
-      function(passed, value) {
+      (passed, value) => {
         if (!passed) {
           return false;
         } else {
@@ -144,7 +144,19 @@ class LoScore {
     };
   }
 
-  invoke(collection, functionOrKey) {}
+  invoke(collection, functionOrKey) {
+    const output = [];
+    if (typeof functionOrKey === "string") {
+      for (let x = 0; x < collection.length; x++) {
+        output.push(collection[x][functionOrKey].apply(collection[x]));
+      }
+    } else {
+      for (let i = 0; i < collection.length; i++) {
+        output.push(functionOrKey.apply(collection[i]));
+      }
+    }
+    return output;
+  }
 
   /**
   | ADVANCED REQUIREMENTS
