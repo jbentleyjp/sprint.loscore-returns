@@ -85,7 +85,9 @@ class LoScore {
     return this.reduce(
       collection,
       (passed, value) => {
-        if (!passed) {
+        if (value === 1 || value === {}) {
+          return true;
+        } else if (!passed) {
           return false;
         }
         return test(value);
